@@ -1,13 +1,13 @@
 import React from 'react';
 
-class Chargepoints extends React.Component {
+class Reservation extends React.Component {
       render() {
         return (
             <div>
-                <h1>Chargepoints</h1>
+                <h1>Reservation</h1>
             </div>
         );
       }
  }
 
- export default Chargepoints;
+ export default Reservation;

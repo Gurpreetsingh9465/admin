@@ -1,5 +1,4 @@
 import React from 'react';
-// import logo from './logo.png';
 import { Switch, Route } from "react-router-dom";
 import './App.css';
 import Login from './components/Login'
@@ -8,7 +7,10 @@ function App() {
   return (
     <div>
       <Switch>
-        <Route exact path="/home" component={Home}></Route>
+        <Route exact path = '/' render={(routeProps)=>{
+          routeProps.history.replace('/login');
+        }} />
+        <Route path="/home" component={Home}></Route>
         <Route exact path="/login" component={Login}></Route>
       </Switch>
     </div>

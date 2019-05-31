@@ -1,7 +1,6 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import cookie from 'react-cookies'
-import './login.css';
 import { Form, Row, Col, Icon, Input, Button, Card } from 'antd';
 class Login extends React.Component {
     constructor(props) {
@@ -27,7 +26,7 @@ class Login extends React.Component {
             }
             this.setState(state);
             cookie.save('user',values.username,{ path: '/' });
-            this.props.history.replace('/home');
+            this.props.history.replace('/home/dashboard');
             console.log('Received values of form: ', values);
           }
         });

@@ -1,10 +1,75 @@
 import React from 'react';
-import { Col, Row, Layout, Menu, Icon, Breadcrumb } from 'antd';
+import { Col, Layout, Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom';
+
 import 'antd/dist/antd.css';
 const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 
-class SiderDemo extends React.Component {
+const sidebarValues = [
+  {
+    id: '1',
+    icon: 'dashboard',
+    name: 'Dashboard',
+    route: 'dashboard',
+  },
+  {
+    id: '2',
+    name: 'Reservations',
+    icon: 'book',
+    route: 'reservations',
+  },
+  {
+    id: '3',
+    name: 'Data Management',
+    icon: 'code-o',
+    subMenu: [{
+      id: '31',
+      name: 'Users',
+      icon: 'user',
+      route: 'users',
+    },
+      {
+        id: '32',
+        name: 'Charge Point',
+        icon: 'line-chart',
+        route: 'chargepoints',
+      }]
+  },
+  {
+    id: '4',
+    name: 'Transaction',
+    icon: 'car',
+    route: 'transactions',
+  },
+  {
+    id: '5',
+    name: 'Settings',
+    icon: 'setting',
+    route: 'settings',
+  },
+  {
+    id: '6',
+    name: 'Log File',
+    icon: 'file',
+    route: 'logfiles',
+  },
+  {
+    id: '7',
+    name: 'About',
+    icon: 'info-circle',
+    route: 'about',
+  },
+  {
+    id: '8',
+    name: 'Logout',
+    icon: 'logout',
+    route: 'signout',
+  },
+]
+
+
+class Sidebar extends React.Component {
   state = {
     collapsed: false,
   };
@@ -16,51 +81,55 @@ class SiderDemo extends React.Component {
   };
 
   render() {
+    const menuOptions = []
+    for(var value of sidebarValues) {
+      if(!value.subMenu) {
+        menuOptions.push(
+          (
+            <Menu.Item key={ value.id }>
+              <Link to={'/home/'+ value.route}>
+                <Icon type={value.icon} />
+                <span>{value.name}</span>
+              </Link>
+            </Menu.Item>
+          )
+        )
+      } else {
+        const subOptions = []
+        for(var sub of value.subMenu) {
+          subOptions.push((
+            <Menu.Item key={ sub.id }>
+              <Link to={'/home/'+ sub.route}>
+                <Icon type={ sub.icon } />
+                <span>{sub.name}</span>
+              </Link>
+            </Menu.Item>
+          ))
+        }
+        menuOptions.push((
+          <SubMenu
+            key={ value.id }
+            title={
+              <span>
+                <Icon type={value.icon} />
+                <span>{value.name}</span>
+              </span>
+            }
+          >
+            {subOptions}
+          </SubMenu>
+        ))
+      }
+    }
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider trigger={null} style={{ background: '#fff' }} collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
         <Col style={{height: "9%"}} span={8} offset={8}>
-                    <img style={{marginTop: '15px', width:'100%'}} src="./logo.png"/>
-            </Col>
-          <Menu theme="light" defaultSelectedKeys={['1']} mode="inline">
-            <Menu.Item key="1">
-              <Icon type="pie-chart" />
-              <span>Option 1</span>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Icon type="desktop" />
-              <span>Option 2</span>
-            </Menu.Item>
-            <SubMenu
-              key="sub1"
-              title={
-                <span>
-                  <Icon type="user" />
-                  <span>User</span>
-                </span>
-              }
-            >
-              <Menu.Item key="3">Tom</Menu.Item>
-              <Menu.Item key="4">Bill</Menu.Item>
-              <Menu.Item key="5">Alex</Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="sub2"
-              title={
-                <span>
-                  <Icon type="team" />
-                  <span>Team</span>
-                </span>
-              }
-            >
-              <Menu.Item key="6">Team 1</Menu.Item>
-              <Menu.Item key="8">Team 2</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="9">
-              <Icon type="file" />
-              <span>File</span>
-            </Menu.Item>
-          </Menu>
+            <img style={{marginTop: '15px', width:'100%'}} src="/logo.png"/>
+        </Col>
+        <Menu theme="light" defaultSelectedKeys={[this.props.id]} mode="inline">
+          {menuOptions}
+        </Menu>
         </Sider>
         <Layout>
           <Header style={{ background: '#fff', padding: 0 }}>
@@ -80,14 +149,12 @@ class SiderDemo extends React.Component {
           <Content
             style={{
               margin: '24px 16px',
-              padding: 24,
-              background: '#fff',
-              minHeight: 280,
+              padding: 24
             }}
           >
             {this.props.content}
           </Content>
-          <Footer style={{ textAlign: 'center' }}>Admin ©2019</Footer>
+          <Footer style={{ textAlign: 'center', background: '#fff' }}>Admin ©2019</Footer>
         </Layout>
       </Layout>
     );
@@ -95,4 +162,4 @@ class SiderDemo extends React.Component {
 }
 
 
-export default SiderDemo;
+export default Sidebar;
