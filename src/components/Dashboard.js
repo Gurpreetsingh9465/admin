@@ -81,9 +81,11 @@ class Dashboard extends React.Component {
             </Col>
         ))
         return (
+          <div style={{ margin: '24px 16px', padding: 24 }} >
             <Row gutter={24}>
                 { numberCards }
             </Row>
+          </div>
         );
       }
  }

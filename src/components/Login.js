@@ -1,7 +1,7 @@
-import React from 'react';
-import 'antd/dist/antd.css';
-import cookie from 'react-cookies'
-import { Form, Row, Col, Icon, Input, Button, Card } from 'antd';
+import React, { Fragment } from 'react';
+import './css/login.css';
+import cookie from 'react-cookies';
+import { Form, Icon, Input, Button } from 'antd';
 class Login extends React.Component {
     constructor(props) {
       super(props);
@@ -37,46 +37,41 @@ class Login extends React.Component {
         const requiredName = this.state.isRequiredName;
         const { getFieldDecorator } = this.props.form;
         return (
-          <Row>
-            <Col style={{paddingTop: 160}} span={6} offset={9} >
-              <Card bordered={false} style={{ width: "100%" }} >
-                <Col span={20} offset={2}>
-                <br/>
-                <Col span={6} offset={9}><img style={{maxWidth:50}} alt="logo" src="./logo.png" /></Col>
-                <br/>
-                <br/>
-                  <Form onSubmit={this.handleSubmit} className="login-form">
-                    <Form.Item>
-                      {getFieldDecorator('username', {
-                        rules: [{ required: requiredName }],
-                      })(
-                        <Input
-                          prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                          placeholder="Username"
-                        />,
-                      )}
-                    </Form.Item>
-                    <Form.Item>
-                      {getFieldDecorator('password', {
-                        rules: [{ required: requiredPassword }],
-                      })(
-                        <Input
-                          prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                          type="password"
-                          placeholder="Password"
-                        />,
-                      )}
-                    </Form.Item>
-                    <Form.Item>
-                      <Button type="primary" htmlType="submit" className="login-form-button">
-                        Sign In
-                      </Button>
-                    </Form.Item>
-                  </Form>
-                </Col>
-              </Card>
-            </Col>
-          </Row>
+          <Fragment>
+            <div className="form" >
+                <div className='logo'>
+                  <img alt="logo" src='./logo.png' />
+                </div>
+                <Form onSubmit={this.handleSubmit} className="login-form">
+                  <Form.Item hasFeedback>
+                    {getFieldDecorator('username', {
+                      rules: [{ required: requiredName }],
+                    })(
+                      <Input
+                        prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        placeholder="Username"
+                      />,
+                    )}
+                  </Form.Item>
+                  <Form.Item hasFeedback>
+                    {getFieldDecorator('password', {
+                      rules: [{ required: requiredPassword }],
+                    })(
+                      <Input
+                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        type="password"
+                        placeholder="Password"
+                      />,
+                    )}
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" htmlType="submit" className="login-form-button">
+                      Sign In
+                    </Button>
+                  </Form.Item>
+                </Form>
+            </div>
+          </Fragment>
         );
       }
  }

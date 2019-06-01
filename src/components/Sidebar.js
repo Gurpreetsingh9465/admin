@@ -125,7 +125,7 @@ class Sidebar extends React.Component {
       <Layout style={{ minHeight: '100vh' }}>
         <Sider trigger={null} style={{ background: '#fff' }} collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
         <Col style={{height: "9%"}} span={8} offset={8}>
-            <img style={{marginTop: '15px', width:'100%'}} src="/logo.png"/>
+            <img style={{marginTop: '15px', width:'100%'}} alt="logo" src="/logo.png"/>
         </Col>
         <Menu theme="light" defaultSelectedKeys={[this.props.id]} mode="inline">
           {menuOptions}
@@ -146,12 +146,7 @@ class Sidebar extends React.Component {
               onClick={this.toggle}
             />
           </Header>
-          <Content
-            style={{
-              margin: '24px 16px',
-              padding: 24
-            }}
-          >
+          <Content>
             {this.props.content}
           </Content>
           <Footer style={{ textAlign: 'center', background: '#fff' }}>Admin ©2019</Footer>
