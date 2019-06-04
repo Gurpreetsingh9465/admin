@@ -99,6 +99,7 @@ class ChargePoint extends React.Component {
             visible: true,
         });
     };
+
     handleOk = e => {
         console.log(e);
         this.setState({
@@ -111,6 +112,7 @@ class ChargePoint extends React.Component {
             visible: false,
         });
     };
+
     getFields() {
         const { getFieldDecorator } = this.props.form;
         const children = [];
@@ -131,9 +133,27 @@ class ChargePoint extends React.Component {
                 <Form.Item label='Charge Point ID'>
                     {getFieldDecorator('add')(<Input placeholder='Enter Id' />)}
                 </Form.Item>
-                <Button type="primary" htmlType="submit">
-                    Search Box
-                </Button>
+                <Form.Item label='Address Line 1'>
+                    {getFieldDecorator('address1')(<Input placeholder='address line 1' />)}
+                </Form.Item>
+                <Form.Item label='Address Line 2'>
+                    {getFieldDecorator('address2')(<Input placeholder='address line 2' />)}
+                </Form.Item>
+                <Form.Item label='City / Town'>
+                    {getFieldDecorator('city')(<Input placeholder='city' />)}
+                </Form.Item>
+                <Form.Item label='State'>
+                    {getFieldDecorator('state')(<Input placeholder='state' />)}
+                </Form.Item>
+                <Form.Item label='Postal Code'>
+                    {getFieldDecorator('code')(<Input placeholder='code' />)}
+                </Form.Item>
+                <Form.Item label='Latitude'>
+                    {getFieldDecorator('latitude')(<Input placeholder='latitude' />)}
+                </Form.Item>
+                <Form.Item label='Longitude'>
+                    {getFieldDecorator('longitude')(<Input placeholder='longitude' />)}
+                </Form.Item>
             </Form>
         );
     }
@@ -142,6 +162,7 @@ class ChargePoint extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             console.log(values);
+            this.handleReset();
         });
     };
 
@@ -158,15 +179,13 @@ class ChargePoint extends React.Component {
                 <Row>
                     <Col span={24} style={{ textAlign: 'right' }}>
                         <Button type="primary" htmlType="submit">
-                            Search
-                        </Button>
-                        <Button type="danger" style={{ marginLeft: 8 }} onClick={this.handleReset}>
-                            Clear
+                            Get
                         </Button>
                         <Button style={{ marginLeft: 8 }} onClick={this.showModal}>
                             Add New
                         </Button>
                         <Modal
+                            style={{ top: 20 }}
                             title="Add Charge Point"
                             visible={this.state.visible}
                             onOk={this.handleOk}
